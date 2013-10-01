@@ -27,6 +27,7 @@ if (isset($_SESSION['isLogged']) == true) {
     <?php
 } else {
     header('Location: index.php');
+    exit;
 }
 include './includes/footer.php';
 ?>

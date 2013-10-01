@@ -40,6 +40,7 @@ if (isset($_SESSION['isLogged']) == true) {
     }
 } else {
     header('Location: index.php');
+    exit;
 }
 ?>
 <a href="destroy.php">Изход</a><br>
