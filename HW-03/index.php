@@ -5,7 +5,7 @@ mb_internal_encoding('UTF-8');
 $pageTitle = 'Вход';
 include './includes/header.php';
 
-$connection = mysqli_connect('localhost', 'ivan', 'password', 'homework_msg');
+require './includes/connection.php';
 if (!$connection) {
     echo 'no database';
     exit;
@@ -23,15 +23,17 @@ if (isset($_SESSION['isLogged']) == true) {
     <?php
     if (!empty($_POST)) {
         $username = trim($_POST['username']);
+        $username = htmlspecialchars($username);
         $username = mysqli_real_escape_string($connection, $username);
         $pass = trim($_POST['pass']);
+        $pass = htmlspecialchars($pass);
         $pass = mysqli_real_escape_string($connection, $pass);
-        $sql="SELECT * FROM users WHERE username='$username' AND password='$pass'";
-        $result=  mysqli_query($connection, $sql);
-        $count=  mysqli_num_rows($result);
+        $sql = "SELECT * FROM users WHERE username='$username' AND password='$pass'";
+        $result = mysqli_query($connection, $sql);
+        $count = mysqli_num_rows($result);
         //echo $count;
         //exit;
-        if ($count==1) {
+        if ($count == 1) {
             $_SESSION['isLogged'] = true;
             $_SESSION['username'] = $username;
             header('Location: messages.php');

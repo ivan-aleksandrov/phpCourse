@@ -28,7 +28,7 @@ if (isset($_SESSION['isLogged']) == true) {
         </div>
     </form>
     <?php
-    $connection = mysqli_connect('localhost', 'ivan', 'password', 'homework_msg');
+    require './includes/connection.php';
     if (!$connection) {
         echo 'no database';
         exit;

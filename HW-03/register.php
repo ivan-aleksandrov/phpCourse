@@ -8,7 +8,7 @@ if (isset($_SESSION['isLogged']) == true) {
     header('Location: messages.php');
     exit;
 } else {
-    $connection = mysqli_connect('localhost', 'ivan', 'password', 'homework_msg');
+    require './includes/connection.php';
     if (!$connection) {
         echo 'no database';
         exit;
@@ -25,10 +25,13 @@ if (isset($_SESSION['isLogged']) == true) {
     <?php
     if (!empty($_POST)) {
         $username = trim($_POST['username']);
+        $username = htmlspecialchars($username);
         $username = mysqli_real_escape_string($connection, $username);
         $password = trim($_POST['password']);
+        $password = htmlspecialchars($password);
         $password = mysqli_real_escape_string($connection, $password);
         $passwordConfirm = trim($_POST['confirmPassword']);
+        $passwordConfirm = htmlspecialchars($passwordConfirm);
         $passwordConfirm = mysqli_real_escape_string($connection, $passwordConfirm);
 
         if (!$username || !$password || !$passwordConfirm) {

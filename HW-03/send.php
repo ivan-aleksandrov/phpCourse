@@ -5,7 +5,7 @@ $pageTitle = 'Изпращане на съобщение';
 include './includes/header.php';
 
 if (isset($_SESSION['isLogged']) == true) {
-    $connection = mysqli_connect('localhost', 'ivan', 'password', 'homework_msg');
+    require './includes/connection.php';
     if (!$connection) {
         echo 'no database';
         exit;
@@ -24,8 +24,10 @@ if (isset($_SESSION['isLogged']) == true) {
     if (!empty($_POST)) {
         $user = $_SESSION['username'];
         $msgTitle = trim($_POST['messageTitle']);
+        $msgTitle = htmlspecialchars($msgTitle);
         $msgTitle = mysqli_real_escape_string($connection, $msgTitle);
         $msgText = trim($_POST['messageBody']);
+        $msgText = htmlspecialchars($msgText);
         $msgText = mysqli_real_escape_string($connection, $msgText);
         $date = date('Y-m-d H:i:s');
         if (!$msgTitle || !$msgText) {
